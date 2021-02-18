@@ -1,0 +1,16 @@
+program ProjectCrud2;
+
+uses
+  Vcl.Forms,
+  UCrud2 in 'UCrud2.pas' {Form1},
+  UAdd in 'UAdd.pas' {Form2};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm2, Form2);
+  Application.Run;
+end.

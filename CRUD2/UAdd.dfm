@@ -1,0 +1,185 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 160
+  ClientWidth = 490
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnTelaAdd: TPanel
+    Left = 0
+    Top = 0
+    Width = 490
+    Height = 161
+    Color = clSkyBlue
+    ParentBackground = False
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 8
+      Top = 9
+      Width = 69
+      Height = 19
+      Caption = 'Matr'#237'cula:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 8
+      Top = 38
+      Width = 48
+      Height = 19
+      Caption = 'Nome:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 224
+      Top = 9
+      Width = 126
+      Height = 19
+      Caption = 'Data de Ingresso:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 8
+      Top = 73
+      Width = 98
+      Height = 19
+      Caption = 'Data de Nasc:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 8
+      Top = 108
+      Width = 47
+      Height = 19
+      Caption = 'Curso:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 253
+      Top = 70
+      Width = 49
+      Height = 19
+      Caption = 'Turno:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 253
+      Top = 100
+      Width = 60
+      Height = 19
+      Caption = 'Per'#237'odo:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object edtMatricula: TEdit
+      Left = 83
+      Top = 11
+      Width = 121
+      Height = 21
+      TabOrder = 0
+    end
+    object edtNome: TEdit
+      Left = 83
+      Top = 43
+      Width = 394
+      Height = 21
+      TabOrder = 1
+    end
+    object edtDtIng: TEdit
+      Left = 356
+      Top = 11
+      Width = 121
+      Height = 21
+      TabOrder = 2
+      TextHint = '  dd/mm/aaaa'
+    end
+    object edtDtNasc: TEdit
+      Left = 112
+      Top = 75
+      Width = 121
+      Height = 21
+      TabOrder = 3
+      TextHint = '  dd/mm/aaaa'
+    end
+    object edtCurso: TEdit
+      Left = 61
+      Top = 110
+      Width = 172
+      Height = 21
+      TabOrder = 4
+    end
+    object edtTurno: TEdit
+      Left = 308
+      Top = 70
+      Width = 121
+      Height = 21
+      TabOrder = 5
+    end
+    object edtPeriodo: TEdit
+      Left = 319
+      Top = 97
+      Width = 110
+      Height = 21
+      TabOrder = 6
+    end
+    object btnSave: TButton
+      Left = 319
+      Top = 125
+      Width = 75
+      Height = 25
+      Caption = 'Salvar'
+      TabOrder = 7
+      OnClick = btnSaveClick
+    end
+    object btnCancel: TButton
+      Left = 402
+      Top = 124
+      Width = 75
+      Height = 25
+      Caption = 'Cancelar'
+      TabOrder = 8
+      OnClick = btnCancelClick
+    end
+  end
+end

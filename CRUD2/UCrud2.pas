@@ -1,0 +1,160 @@
+unit UCrud2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.StdCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Buttons, Vcl.ComCtrls;
+
+type
+  TForm1 = class(TForm)
+    pnCabeçalhoCadastro: TPanel;
+    pnBotoesControle: TPanel;
+    DBGrid1: TDBGrid;
+    btnConect: TButton;
+    FDConnection1: TFDConnection;
+    FDQuery1: TFDQuery;
+    DataSource1: TDataSource;
+    Panel1: TPanel;
+    lbAddAluno: TLabel;
+    edtNome: TEdit;
+    lbNomeAdd: TLabel;
+    lbMatriculaAdd: TLabel;
+    edtMatricula: TEdit;
+    lbDatNascAdd: TLabel;
+    lbCursoAdd: TLabel;
+    edtCurso: TEdit;
+    lbDtIngAdd: TLabel;
+    lbPeriodoAdd: TLabel;
+    edtPeriodo: TEdit;
+    lbTurnoAdd: TLabel;
+    edtTurno: TEdit;
+    btnAddAluno: TBitBtn;
+    edtNasc: TEdit;
+    edtIng: TEdit;
+    pnEditar: TPanel;
+    lbCabecalhoEdit: TLabel;
+    edtMatriculaEditar: TEdit;
+    lbEditarNumMatricula: TLabel;
+    edtNovoDado: TEdit;
+    lbCursoEditar: TLabel;
+    edtColuna: TEdit;
+    btnEditarCadastro: TButton;
+    lbDadoEditado: TLabel;
+    btnExcluirCadastro: TButton;
+    procedure btnConectClick(Sender: TObject);
+    function addAluno : boolean;
+    function deleteCadastro : boolean;
+    function updateCadastro : boolean;
+    procedure btnAddAlunoClick(Sender: TObject);
+    procedure limparCampos;
+    procedure btnExcluirCadastroClick(Sender: TObject);
+    procedure btnEditarCadastroClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses UAdd;
+
+
+function TForm1.addAluno: boolean;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Insert into Aluno(matricula_Aluno, nome_Aluno, Nasc_Aluno, Data_Ingresso_Aluno,Curso_Aluno, Turno_Aluno, Periodo_Aluno)');
+  FDQuery1.SQL.Add('values ('+edtMatricula.Text+', '''+edtNome.Text+''', '''+edtNasc.Text+''','''+edtIng.Text+''', '''+edtCurso.Text+''', '''+edtTurno.Text+''', '+edtPeriodo.Text+')');
+  FDQuery1.ExecSQL;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  result := true;
+end;
+
+
+
+procedure TForm1.btnAddAlunoClick(Sender: TObject);
+begin
+  addAluno;
+  showmessage('Cadastro realizado com sucesso');
+  limparCampos;
+end;
+
+procedure TForm1.btnConectClick(Sender: TObject);
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Select * from Aluno');
+  FDQuery1.Open;
+end;
+
+procedure TForm1.btnEditarCadastroClick(Sender: TObject);
+begin
+  updateCadastro;
+  ShowMessage('Edição concluída.');
+  LimparCampos;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Select * from Aluno');
+  FDQuery1.Open;
+end;
+
+procedure TForm1.btnExcluirCadastroClick(Sender: TObject);
+begin
+  deleteCadastro;
+  Showmessage('Exclusão realizada!');
+  LimparCampos;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Select * from Aluno');
+  FDQuery1.Open;
+end;
+
+function TForm1.deleteCadastro: boolean;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Delete from Aluno where matricula_Aluno = '+edtMatriculaEditar.Text);
+  FDQuery1.ExecSQL;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  result := true;
+end;
+
+procedure TForm1.limparCampos;
+begin
+  edtMatricula.Clear;
+  edtNome.Clear;
+  edtNasc.Clear;
+  edtIng.Clear;
+  edtCurso.Clear;
+  edtTurno.Clear;
+  edtPeriodo.Clear;
+  edtMatriculaEditar.Clear;
+  edtColuna.Clear;
+  edtNovoDado.Clear;
+end;
+
+function TForm1.updateCadastro: boolean;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Update Aluno set '+edtColuna.Text+' = '''+edtNovoDado.Text+''' where matricula_Aluno = '+edtMatriculaEditar.Text);
+  FDQuery1.ExecSQL;
+  result := true;
+end;
+
+end.

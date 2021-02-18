@@ -1,0 +1,101 @@
+unit UAdd;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, UCrud2;
+
+type
+  TForm2 = class(TForm1)
+    pnTelaAdd: TPanel;
+    edtMatricula: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtNome: TEdit;
+    Label3: TLabel;
+    edtDtIng: TEdit;
+    Label4: TLabel;
+    edtDtNasc: TEdit;
+    Label5: TLabel;
+    edtCurso: TEdit;
+    Label6: TLabel;
+    edtTurno: TEdit;
+    Label7: TLabel;
+    edtPeriodo: TEdit;
+    btnSave: TButton;
+    btnCancel: TButton;
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+    function addAluno : Boolean;
+    procedure formatarDadosInsert;
+  private
+    { Private declarations }
+  public
+    matricula, periodo : integer;
+    nome, curso, turno : String;
+    DtNasc, DtIng : TDate;
+
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+function TForm2.addAluno: Boolean;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Insert into Aluno ');
+  FDQuery1.SQL.Add('(matricula_Aluno, nome_Aluno, Nasc_Aluno, Data_Ingresso_Aluno,');
+  FDQuery1.SQL.Add('Curso_Aluno, Turno_Aluno, Periodo_Aluno)');
+  FDQuery1.SQL.Add('values (matricula, nome, DtNasc, ');
+  FDQuery1.SQL.Add('DtIng, curso, turno, periodo)');
+  
+try
+  FDQuery1.ExecSQL;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  result := true;
+except
+  result := false;
+end;
+ 
+end;
+
+
+
+procedure TForm2.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+  Close;
+end;
+
+procedure TForm2.btnSaveClick(Sender: TObject);
+begin
+  formatarDadosInsert;
+  addAluno;
+  edtMatricula.Clear;
+  edtNome.Clear;
+  edtDtNasc.Clear;
+  edtDtIng.Clear;
+  edtCurso.Clear;
+  edtTurno.Clear;
+  edtPeriodo.Clear;
+end;
+
+procedure TForm2.formatarDadosInsert;
+begin
+  matricula := strtoint(edtMatricula.Text);
+  nome := edtNome.Text;
+  DtNasc :=   strtodate(edtDtNasc.Text);
+  DtIng := strtodate(edtDtIng.Text);
+  curso :=  edtCurso.Text;
+  turno :=  edtTurno.Text;
+  periodo := strtoint(edtPeriodo.Text);
+end;
+
+end.

@@ -1,0 +1,58 @@
+unit UAdd;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, UCrud2;
+
+type
+  TForm2 = class(TForm1)
+    Panel1: TPanel;
+    edtMatricula: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtNome: TEdit;
+    Label3: TLabel;
+    edtDtIng: TEdit;
+    Label4: TLabel;
+    edtDtNasc: TEdit;
+    Label5: TLabel;
+    edtCurso: TEdit;
+    Label6: TLabel;
+    edtTurno: TEdit;
+    Label7: TLabel;
+    edtPeriodo: TEdit;
+    btnSave: TButton;
+    btnCancel: TButton;
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.btnSaveClick(Sender: TObject);
+begin
+  ;
+
+  inherited;
+
+end;
+
+
+procedure TForm2.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+  Close;
+end;
+
+end.

@@ -1,0 +1,131 @@
+unit UCrud2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.StdCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Buttons, Vcl.ComCtrls;
+
+type
+  TForm1 = class(TForm)
+    pnCabeçalhoCadastro: TPanel;
+    pnBotoesControle: TPanel;
+    DBGrid1: TDBGrid;
+    btnDel: TButton;
+    btnConect: TButton;
+    FDConnection1: TFDConnection;
+    FDQuery1: TFDQuery;
+    DataSource1: TDataSource;
+    Panel1: TPanel;
+    lbAddAluno: TLabel;
+    edtNome: TEdit;
+    lbNomeAdd: TLabel;
+    lbMatriculaAdd: TLabel;
+    edtMatricula: TEdit;
+    lbDatNascAdd: TLabel;
+    lbCursoAdd: TLabel;
+    edtCurso: TEdit;
+    lbDtIngAdd: TLabel;
+    lbPeriodoAdd: TLabel;
+    edtPeriodo: TEdit;
+    lbTurnoAdd: TLabel;
+    edtTurno: TEdit;
+    btnAddAluno: TBitBtn;
+    edtNasc: TEdit;
+    edtIng: TEdit;
+    procedure btnConectClick(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
+    procedure btnPostClick(Sender: TObject);
+    procedure btnDelClick(Sender: TObject);
+    function addAluno : boolean;
+    procedure formatarAdd;
+    procedure btnAddAlunoClick(Sender: TObject);
+    procedure limparCamposAdd;
+  private
+    { Private declarations }
+  public
+    matricula, periodo : integer;
+    nome, curso, turno, DtNasc, DtIng : String;
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses UAdd;
+
+
+function TForm1.addAluno: boolean;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('Insert into Aluno(matricula_Aluno, nome_Aluno, Nasc_Aluno, Data_Ingresso_Aluno,Curso_Aluno, Turno_Aluno, Periodo_Aluno)');
+  FDQuery1.SQL.Add('values ('+inttostr(matricula)+', '''+nome+''', '''+DtNasc+''','''+DtIng+''', '''+curso+''', '''+turno+''', '+inttostr(periodo)+')');
+  FDQuery1.ExecSQL;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  result := true;
+end;
+
+
+
+procedure TForm1.btnAddAlunoClick(Sender: TObject);
+begin
+  formatarAdd;
+  addAluno;
+  showmessage('Cadastro realizado com sucesso');
+  limparCamposAdd;
+end;
+
+procedure TForm1.btnCloseClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TForm1.btnConectClick(Sender: TObject);
+begin
+  FDQuery1.Open('Select * from Aluno');
+end;
+
+procedure TForm1.btnDelClick(Sender: TObject);
+begin
+  FDQuery1.Delete;
+end;
+
+procedure TForm1.btnPostClick(Sender: TObject);
+begin
+  FDQuery1.Post;
+end;
+
+procedure TForm1.formatarAdd;
+begin
+  matricula := strtoint(edtMatricula.Text);
+  nome := edtNome.Text;
+  DtNasc := edtNasc.Text;
+  DtIng := edtIng.Text;
+  curso :=  edtCurso.Text;
+  turno :=  edtTurno.Text;
+  periodo := strtoint(edtPeriodo.Text);
+end;
+
+procedure TForm1.limparCamposAdd;
+begin
+  edtMatricula.Clear;
+  edtNome.Clear;
+  edtNasc.Clear;
+  edtIng.Clear;
+  edtCurso.Clear;
+  edtTurno.Clear;
+  edtPeriodo.Clear;
+end;
+
+end.
