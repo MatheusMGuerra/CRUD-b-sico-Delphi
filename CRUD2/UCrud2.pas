@@ -38,28 +38,24 @@ type
     btnAddAluno: TBitBtn;
     edtNasc: TEdit;
     edtIng: TEdit;
-    pnEditar: TPanel;
-    lbCabecalhoEdit: TLabel;
-    edtMatriculaEditar: TEdit;
-    lbEditarNumMatricula: TLabel;
-    edtNovoDado: TEdit;
-    lbCursoEditar: TLabel;
-    edtColuna: TEdit;
     btnEditarCadastro: TButton;
-    lbDadoEditado: TLabel;
     btnExcluirCadastro: TButton;
+    btnLimpar: TButton;
     procedure btnConectClick(Sender: TObject);
     function addAluno : boolean;
     function deleteCadastro : boolean;
     function updateCadastro : boolean;
+    procedure alimentarVariaveis;
     procedure btnAddAlunoClick(Sender: TObject);
     procedure limparCampos;
     procedure btnExcluirCadastroClick(Sender: TObject);
     procedure btnEditarCadastroClick(Sender: TObject);
+    procedure DataSource1DataChange(Sender: TObject; Field: TField);
+    procedure btnLimparClick(Sender: TObject);
   private
     { Private declarations }
   public
-
+    matricula, nome, DtNasc, DtIng, curso, turno, periodo : String;
   end;
 
 var
@@ -85,6 +81,17 @@ begin
 end;
 
 
+
+procedure TForm1.alimentarVariaveis;
+begin
+  matricula := FDQuery1.FieldByName('matricula_Aluno').AsString;
+  nome := FDQuery1.FieldByName('nome_Aluno').AsString;
+  DtNasc := FDQuery1.FieldByName('Nasc_Aluno').AsString;
+  DtIng := FDQuery1.FieldByName('Data_Ingresso_Aluno').AsString;
+  curso := FDQuery1.FieldByName('Curso_Aluno').AsString;
+  turno := FDQuery1.FieldByName('Turno_Aluno').AsString;
+  periodo := FDQuery1.FieldByName('Periodo_Aluno').AsString;
+end;
 
 procedure TForm1.btnAddAlunoClick(Sender: TObject);
 begin
@@ -123,18 +130,35 @@ begin
   FDQuery1.Open;
 end;
 
+procedure TForm1.btnLimparClick(Sender: TObject);
+begin
+  LimparCampos;
+end;
+
+procedure TForm1.DataSource1DataChange(Sender: TObject; Field: TField);
+begin
+  alimentarVariaveis;
+  edtMatricula.Text := matricula;
+  edtNome.Text  := nome;
+  edtNasc.Text  := DtNasc;
+  edtIng.Text := DtIng;
+  edtCurso.Text := curso;
+  edtTurno.Text := turno;
+  edtPeriodo.Text := periodo;
+end;
+
 function TForm1.deleteCadastro: boolean;
 begin
   FDQuery1.Close;
   FDQuery1.SQL.Clear;
-  FDQuery1.SQL.Add('Delete from Aluno where matricula_Aluno = '+edtMatriculaEditar.Text);
+  FDQuery1.SQL.Add('Delete from Aluno where matricula_Aluno = '+edtMatricula.Text);
   FDQuery1.ExecSQL;
   FDQuery1.Close;
   FDQuery1.SQL.Clear;
   result := true;
 end;
 
-procedure TForm1.limparCampos;
+procedure TForm1.LimparCampos;
 begin
   edtMatricula.Clear;
   edtNome.Clear;
@@ -143,16 +167,19 @@ begin
   edtCurso.Clear;
   edtTurno.Clear;
   edtPeriodo.Clear;
-  edtMatriculaEditar.Clear;
-  edtColuna.Clear;
-  edtNovoDado.Clear;
 end;
 
 function TForm1.updateCadastro: boolean;
 begin
   FDQuery1.Close;
   FDQuery1.SQL.Clear;
-  FDQuery1.SQL.Add('Update Aluno set '+edtColuna.Text+' = '''+edtNovoDado.Text+''' where matricula_Aluno = '+edtMatriculaEditar.Text);
+  FDQuery1.SQL.Add('Update Aluno set nome_Aluno = '''+edtNome.Text+''',');
+  FDQuery1.SQL.Add('Nasc_Aluno = '''+edtNasc.Text+''',');
+  FDQuery1.SQL.Add('Data_Ingresso_Aluno = '''+edtIng.Text+''',');
+  FDQuery1.SQL.Add('Curso_Aluno = '''+edtCurso.Text+''',');
+  FDQuery1.SQL.Add('Turno_Aluno = '''+edtTurno.Text+''',');
+  FDQuery1.SQL.Add('Periodo_Aluno = '+edtPeriodo.Text+'');
+  FDQuery1.SQL.Add('where matricula_Aluno = '+matricula);
   FDQuery1.ExecSQL;
   result := true;
 end;

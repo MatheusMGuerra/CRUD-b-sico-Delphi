@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 551
+  ClientHeight = 424
   ClientWidth = 658
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -89,7 +89,7 @@
       Top = 8
       Width = 117
       Height = 19
-      Caption = 'Adicionar aluno:'
+      Caption = 'Dados do aluno:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -182,8 +182,8 @@
       TabOrder = 4
     end
     object btnAddAluno: TBitBtn
-      Left = 561
-      Top = 86
+      Left = 406
+      Top = 89
       Width = 75
       Height = 25
       Caption = 'Adiconar'
@@ -206,86 +206,32 @@
       TabOrder = 7
       TextHint = ' aaaa/mm/dd'
     end
-  end
-  object pnEditar: TPanel
-    Left = 0
-    Top = 425
-    Width = 658
-    Height = 128
-    Align = alTop
-    TabOrder = 4
-    object lbCabecalhoEdit: TLabel
-      Left = 16
-      Top = 6
-      Width = 164
-      Height = 19
-      Caption = 'Editar/Excluir cadastro:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lbEditarNumMatricula: TLabel
-      Left = 16
-      Top = 47
-      Width = 102
-      Height = 13
-      Caption = 'N'#250'mero da matr'#237'cula:'
-    end
-    object lbCursoEditar: TLabel
-      Left = 16
-      Top = 93
-      Width = 80
-      Height = 13
-      Caption = 'Nome da coluna:'
-    end
-    object lbDadoEditado: TLabel
-      Left = 245
-      Top = 92
-      Width = 56
-      Height = 13
-      Caption = 'Novo dado:'
-    end
-    object edtMatriculaEditar: TEdit
-      Left = 124
-      Top = 46
-      Width = 108
-      Height = 21
-      TabOrder = 0
-    end
-    object edtNovoDado: TEdit
-      Left = 307
-      Top = 92
-      Width = 154
-      Height = 21
-      TabOrder = 1
-    end
-    object edtColuna: TEdit
-      Left = 102
-      Top = 89
-      Width = 130
-      Height = 21
-      TabOrder = 2
-    end
     object btnEditarCadastro: TButton
-      Left = 478
+      Left = 487
       Top = 86
       Width = 75
-      Height = 27
+      Height = 28
       Caption = 'Editar'
-      TabOrder = 3
+      TabOrder = 8
       OnClick = btnEditarCadastroClick
     end
     object btnExcluirCadastro: TButton
-      Left = 245
-      Top = 48
+      Left = 568
+      Top = 89
       Width = 75
       Height = 25
       Caption = 'Excluir'
-      TabOrder = 4
+      TabOrder = 9
       OnClick = btnExcluirCadastroClick
+    end
+    object btnLimpar: TButton
+      Left = 325
+      Top = 89
+      Width = 75
+      Height = 25
+      Caption = 'Limpar'
+      TabOrder = 10
+      OnClick = btnLimparClick
     end
   end
   object FDConnection1: TFDConnection
@@ -307,6 +253,7 @@
   end
   object DataSource1: TDataSource
     DataSet = FDQuery1
+    OnDataChange = DataSource1DataChange
     Left = 512
     Top = 184
   end
